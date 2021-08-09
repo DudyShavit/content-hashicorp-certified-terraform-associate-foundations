@@ -2,7 +2,7 @@
 resource "aws_instance" "webserver" {
   ami                         = data.aws_ssm_parameter.webserver-ami.value
   instance_type               = "t3.micro"
-  key_name                    = aws_key_pair.webserver-key.key_name
+  key_name                    = "YOUR-KEY-NAME"
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.sg.id]
   subnet_id                   = aws_subnet.subnet.id
@@ -15,7 +15,7 @@ resource "aws_instance" "webserver" {
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      private_key = file("~/.ssh/id_rsa")
+      private_key = file("YOUR-PEM-FILE")
       host        = self.public_ip
     }
   }
